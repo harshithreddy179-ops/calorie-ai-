@@ -1,17 +1,18 @@
-'use client'
+"use client"
 
 import { useState } from "react"
 
 export default function Home() {
 
-  const [image, setImage] = useState<File | null>(null)
+  const [file, setFile] = useState<File | null>(null)
   const [result, setResult] = useState("")
 
-  const handleUpload = async () => {
-    if (!image) return
+  async function analyzeImage() {
+
+    if (!file) return
 
     const formData = new FormData()
-    formData.append("file", image)
+    formData.append("file", file)
 
     const res = await fetch("/api/analyze", {
       method: "POST",
@@ -19,23 +20,28 @@ export default function Home() {
     })
 
     const data = await res.json()
+
     setResult(data.result)
   }
 
   return (
-    <main style={{padding:40}}>
-      <h1>Calorie Intelligence AI</h1>
+    <main style={{padding:40,fontFamily:"Arial"}}>
+
+      <h1>🍔 Calorie Intelligence AI</h1>
 
       <input
         type="file"
-        onChange={(e)=>setImage(e.target.files?.[0] || null)}
+        onChange={(e)=>setFile(e.target.files?.[0] || null)}
       />
 
-      <button onClick={handleUpload}>
+      <br/><br/>
+
+      <button onClick={analyzeImage}>
         Analyze Food
       </button>
 
-      <p>{result}</p>
+      <h2>{result}</h2>
+
     </main>
   )
 }
