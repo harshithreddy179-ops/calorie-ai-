@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "anthropic": "^0.3.0",
+    "anthropic": "^0.20.0",
     "browser-image-compression": "^1.0.17",
     "framer-motion": "^10.12.16",
     "lucide-react": "^0.268.0",
